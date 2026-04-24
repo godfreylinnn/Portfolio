@@ -297,12 +297,13 @@ h1 span {
   background-image: var(--photo-url);
   background-size: cover;
   background-position: center;
-  border: 6px solid rgba(255, 255, 255, 0.96);
+  /* No inner border so the photo occupies the outer hero-art frame */
+  border: none;
   display: grid;
   place-items: center;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 20px 36px rgba(30, 18, 30, 0.12);
+  box-shadow: none;
 }
 
 .photo-hint {
@@ -1203,6 +1204,48 @@ h1 span {
   }
 }
 
+/* Small-screen contact fixes */
+@media (max-width: 520px) {
+  .contact-card {
+    padding: 18px;
+    border-radius: 18px;
+  }
+
+  .contact-item {
+    gap: 10px;
+  }
+
+  .contact-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+  }
+
+  .contact-item strong {
+    font-size: 16px;
+  }
+
+  .connect-icons a {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    font-size: 15px;
+    padding: 12px;
+  }
+
+  /* Make the submit button full width and easier to tap on mobile */
+  .submit-btn {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 12px;
+    justify-content: center;
+  }
+}
+
 body.theme-dark {
   color: #e7e9ee;
   background: linear-gradient(180deg, #1b1622 0%, #15121c 35%, #120f18 100%);
@@ -1293,8 +1336,10 @@ body.theme-dark .about-card {
 }
 
 body.theme-dark .photo-frame {
+  /* Keep no inner border in dark mode so the outer frame is the visible border */
   background-color: #3a2a3a;
-  border-color: #2a2433;
+  border: none;
+  box-shadow: none;
 }
 
 body.theme-dark .photo-hint {
