@@ -83,6 +83,7 @@ main {
   border-radius: 14px;
   transition: all 0.2s ease;
   white-space: nowrap;
+  cursor: pointer;
 }
 
 .menu-toggle {
@@ -112,6 +113,16 @@ main {
 
 
 .site-nav a:hover {
+  color: #f05b8f;
+  background: rgba(240, 91, 143, 0.08);
+  box-shadow: inset 0 0 0 1px rgba(240, 91, 143, 0.06);
+  transform: translateY(-2px);
+}
+
+.site-nav a:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(240,91,143,0.12);
+  background: rgba(240,91,143,0.08);
   color: #f05b8f;
 }
 
@@ -1263,6 +1274,19 @@ body.theme-dark .brand {
 
 body.theme-dark .site-nav a {
   color: #cfd2dc;
+}
+
+body.theme-dark .site-nav a:hover {
+  color: #ff9dc0;
+  background: rgba(255, 143, 182, 0.06);
+  transform: translateY(-2px);
+}
+
+body.theme-dark .site-nav a:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255,143,182,0.12);
+  background: rgba(255,143,182,0.06);
+  color: #ff9dc0;
 }
 
 body.theme-dark .site-nav {

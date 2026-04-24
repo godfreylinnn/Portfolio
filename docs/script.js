@@ -34,12 +34,47 @@ navOverlay.addEventListener("click", () => {
   menuToggle.setAttribute("aria-expanded", "false");
 });
 
+// Close mobile nav and update active state when a nav link is clicked
 navLinks.forEach((link) => {
-  link.addEventListener("click", () => {
+  link.addEventListener("click", (e) => {
+    // if the link is an in-page anchor, update active state
+    const href = link.getAttribute('href') || '';
+    if (href.startsWith('#')) {
+      navLinks.forEach((l) => l.classList.remove('active'));
+      link.classList.add('active');
+    }
+
+    // close menu on mobile
     header.classList.remove("nav-open");
     menuToggle.setAttribute("aria-expanded", "false");
   });
 });
+
+// Scrollspy: highlight nav link for section currently in view
+const sections = Array.from(document.querySelectorAll('main section[id]'));
+function updateActiveLinkOnScroll() {
+  const offset = 160; // match header height / scroll padding
+  const scrollPos = window.scrollY + offset;
+  let currentId = null;
+  for (const section of sections) {
+    if (section.offsetTop <= scrollPos) {
+      currentId = section.id;
+    }
+  }
+
+  if (currentId) {
+    navLinks.forEach((l) => {
+      const href = l.getAttribute('href') || '';
+      if (href.startsWith('#')) {
+        l.classList.toggle('active', href === `#${currentId}`);
+      }
+    });
+  }
+}
+
+window.addEventListener('scroll', updateActiveLinkOnScroll, { passive: true });
+// run once on load
+updateActiveLinkOnScroll();
 
 document.addEventListener("click", (event) => {
   if (!header.classList.contains("nav-open")) return;
