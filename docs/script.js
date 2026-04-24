@@ -49,3 +49,40 @@ document.addEventListener("click", (event) => {
     menuToggle.setAttribute("aria-expanded", "false");
   }
 });
+
+// Contact form: open user's email client with prefilled subject and body
+const contactForm = document.querySelector('.contact-form');
+if (contactForm) {
+  contactForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const name = (form.querySelector('input[name="name"]') || {}).value || '';
+    const email = (form.querySelector('input[name="email"]') || {}).value || '';
+    const subject = (form.querySelector('input[name="subject"]') || {}).value || '';
+    const message = (form.querySelector('textarea[name="message"]') || {}).value || '';
+
+    const to = 'gapudgodfreylinz@gmail.com';
+    const mailSubject = subject.trim() ? subject.trim() : `Message from ${name || email || 'Website Visitor'}`;
+
+    const bodyParts = [];
+    if (name.trim()) bodyParts.push(`Name: ${name.trim()}`);
+    if (email.trim()) bodyParts.push(`Email: ${email.trim()}`);
+    if (message.trim()) {
+      bodyParts.push('');
+      bodyParts.push('Message:');
+      bodyParts.push(message.trim());
+    }
+
+    const body = encodeURIComponent(bodyParts.join('\n'));
+    const mailto = `mailto:${to}?subject=${encodeURIComponent(mailSubject)}&body=${body}`;
+
+    // Attempt to open the user's mail client. This will fall back to the browser's default
+    // behaviour for mailto: links if the client is not configured.
+    try {
+      window.location.href = mailto;
+    } catch (err) {
+      // As a basic fallback, open in a new window/tab which some browsers allow for mailto
+      window.open(mailto, '_blank');
+    }
+  });
+}
